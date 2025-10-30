@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import { forwardRef } from "react";
+import useAuth from "../contexts/AuthContext";
 
 const NavBarMobile = forwardRef(({ closeMenu, openLogin }, ref) => {
+    const { user, loading, logoutContext } = useAuth();
+
     const handleLoginClick = () => {
         closeMenu()
         openLogin()
     };
+
+    const handleLogoutClick = () => {
+        closeMenu()
+        logoutContext()
+    }
+
+    if (loading) return <p>...</p>;
 
     return (
         <div className="mobile-menu" ref={ref}>
@@ -14,7 +24,10 @@ const NavBarMobile = forwardRef(({ closeMenu, openLogin }, ref) => {
             <Link to="/contacto" onClick={closeMenu}>Contacto</Link>
             <Link to="/nosotros" onClick={closeMenu}>Nosotros</Link>
 
-        <button className="logout-mobile" onClick={handleLoginClick}>Administrador</button>
+            {user ?  <button className="logout-mobile" onClick={handleLogoutClick}>Cerrar Sesión</button>
+            : 
+            <button className="logout-mobile" onClick={handleLoginClick}>Administrador</button>
+            }
         </div>
     );
 });

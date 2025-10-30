@@ -5,16 +5,23 @@ import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/1
 import axios from "axios";
 import NavBarMobile from "./NavBarMobile";
 import "../css/navBar.css";
+import useAuth from "../contexts/AuthContext";
 
 const NavBar = () => {
     const menuRef = useRef();
     const loginRef = useRef();
     const navigate = useNavigate()
+    const { user, loadingContext, loginContext, logoutContext } = useAuth()
 
     const [ menuOpen, setMenuOpen ] = useState(false)
     const [loginOpen, setLoginOpen] = useState(false);
+
     const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState(false)
+
+    const [ loadingOut, setLoadingOut ] = useState(false)
+    const [ errorOut, setErrorOut ] = useState(false)
+
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
@@ -28,12 +35,13 @@ const NavBar = () => {
         setLoginOpen(!loginOpen)
     }
 
+    // LOGIN
     const handleLogin = async (e) => {
-        // Login
         e.preventDefault()
         try {
             setLoading(true)
             const userCredentials =  await signInWithEmailAndPassword( auth, email, password )
+            loginContext(userCredentials.user)
             const idToken = await userCredentials.user.getIdToken()
             
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { idToken })
@@ -45,6 +53,22 @@ const NavBar = () => {
             console.error(`Error login user! 🔴 ${error}`);
         } finally {
             setLoading(false)
+        }
+    }
+    // LOGOUT
+    const handleLogout = async () => {
+        try {
+            setLoadingOut(true)
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout`)
+            if(response.status = 200){
+                logoutContext()
+                navigate("/")
+            }
+        } catch (error) {
+            setErrorOut(true)
+            console.error(`Error logging out session! 🔴 ${error}`);
+        } finally {
+            setLoadingOut(false)
         }
     }
 
@@ -66,6 +90,9 @@ const NavBar = () => {
     if(error) return <h1>Error Iniciando Sesión!</h1>
     if(loading) return <h1>Iniciando Sesión...</h1>
 
+    if(errorOut) return <h1>Error Cerrando Sesión!</h1>
+    if(loadingOut) return <h1>Cerrando Sesión...</h1>
+
     return (
         <header className="navbar">
             <h4 className="logo">Logo</h4>
@@ -78,7 +105,13 @@ const NavBar = () => {
             </nav>
         
             <div className="right-actions">
-                <button className="logout desktop-only" onClick={toggleLoginForm}>Administrador</button>
+                {loading ? (
+                    <p>...</p>
+                ) : user ? (
+                    <button className="logout desktop-only" onClick={handleLogout}> Cerrar Sesión</button>
+                ) : (
+                    <button className="logout desktop-only" onClick={toggleLoginForm}> Administrador </button>
+                )}
                 <button className="menu-btn mobile-only" onClick={toggleMenu}>☰</button>
             </div>
 

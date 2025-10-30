@@ -1,12 +1,12 @@
 import NavBar from "./NavBar"
 
-const Admin = () => {
+const Venta = () => {
     return(
         <>
             <NavBar />
-            <h1>Admin!</h1>
+            <h1>Venta!</h1>
         </>
     )
 }
 
-export default Admin
+export default Venta
