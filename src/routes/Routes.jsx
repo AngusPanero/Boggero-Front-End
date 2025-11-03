@@ -6,6 +6,7 @@ import Alquiler from "../components/Alquiler";
 import Contacto from "../components/Contacto";
 import Nosotros from "../components/Nosotros";
 import Venta from "../components/Venta";
+import Gracias from "../components/Gracias";
 
 const AppRouter = () => {
     return(
@@ -16,6 +17,7 @@ const AppRouter = () => {
                 <Route path="/venta"  element={<Venta />}/>
                 <Route path="/contacto"  element={<Contacto />}/>
                 <Route path="/nosotros"  element={<Nosotros />}/>
+                <Route path="/gracias"  element={<Gracias />}/>
                 <Route path="/admin"  element={<PrivateRoute><Admin /></PrivateRoute>}/>
             </Routes>
         </Router>
