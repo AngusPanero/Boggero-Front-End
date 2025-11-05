@@ -13,7 +13,7 @@ const ContactForm = ({ handleSubmit, handleSetValues, formData }) => {
                 <input type="text" id="phone" name="phone" value={formData.phone} onChange={(e) => handleSetValues("phone", e.target.value)} placeholder="Teléfono" required /> <br />
 
                 <label htmlFor="type">Tipo de Consulta: </label> 
-                <select onChange={(e) => handleSetValues("type", e.target.value)} value={formData.type} name="type" id="type"> 
+                <select onChange={(e) => handleSetValues("type", e.target.value)} value={formData.type} name="type" id="type" required> 
                     <option value="Información">Información</option>
                     <option value="Alquiler">Alquiler</option>
                     <option value="Compra">Compra</option>

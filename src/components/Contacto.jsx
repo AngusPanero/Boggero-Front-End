@@ -32,13 +32,13 @@ const Contacto = () => {
         }
     }
 
-    if(loading){return <h2>Enviando...</h2>} /* <Spinner /> */
-    if(error){return <h2>Error Al Enviar Formulario</h2>} /* <Error /> */
+    if(loading) return <h2>Enviando...</h2> /* <Spinner /> */
+    if(error) return <h2>Error Al Enviar Formulario</h2> /* <Error /> */
 
     return(
         <>
             <NavBar />
-            <ContactForm handleSetValues={handleSetValues} handleSubmit={handleSubmit} formData={formData}/>
+            <ContactForm handleSetValues={handleSetValues} handleSubmit={handleSubmit} formData={formData} />
         </>
     )
 }

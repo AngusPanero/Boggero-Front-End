@@ -4,6 +4,7 @@ import axios from "axios";
 import HouseForm from "./HouseForm";
 import { createHouse } from "../redux/slice";
 import { useDispatch } from "react-redux";
+import OpenAi from "./OpenAi";
 
 const Admin = () => {
     const dispatch = useDispatch()
@@ -95,6 +96,8 @@ const Admin = () => {
             <NavBar />
             <h1>Crear Nueva Vivienda</h1>
             <HouseForm  formData={formData}  handleSubmit={handleSubmit}  handleSetValues={handleSetValues}  handleImagesChange={handleImagesChange}  handleRemoveImage={handleRemoveImage} />
+            <br /><br />
+            <OpenAi />
         </>
     )
 }
