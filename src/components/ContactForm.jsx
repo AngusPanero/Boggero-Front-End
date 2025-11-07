@@ -1,8 +1,8 @@
-const ContactForm = ({ handleSubmit, handleSetValues, formData }) => {
+const ContactForm = ({ handleSubmitForm, handleSetValues, formData }) => {
     return(
         <>
             <h1>Contacto!</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitForm}>
                 <label htmlFor="name">Nombre: </label>
                 <input type="text" id="name" name="name" value={formData.name} onChange={(e) => handleSetValues("name", e.target.value)} placeholder="Nombre" required /> <br />
 

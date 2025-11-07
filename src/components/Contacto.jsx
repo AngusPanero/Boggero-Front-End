@@ -13,24 +13,49 @@ const Contacto = () => {
     const handleSetValues = (name, value) => {
         setFormData((prev) => ({ ...prev, [name]: value })) // [name]: value ] name va en array para declararlo como key y el prev hace que se vaya sumando todo al objeto inicial
     }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    // Nodemailer
+    const handleSubmitNodemailer = async () => {
         try {
-            setError(false)
-            setLoading(true)
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/contact`, formData)
-            if(response.status === 201){
-                navigate("/gracias")
+            const responseNodemailer = await axios.post(`${import.meta.env.VITE_API_URL}/sendemail`, formData);
+            if (responseNodemailer.status !== 200) {
+                throw new Error("Error al enviar el correo.");
             }
         } catch (error) {
-            setError(true)
-            console.error(`Error al enviar el formulario de contacto: ${error}`);
-            throw new Error(`Error al enviar el formulario de contacto: ${error}`)
-        } finally {
-            setLoading(false)
+            setError(true);
+            console.error(`Error al enviar el correo: ${error.message}`);
+            throw error; 
         }
-    }
+    };
+    // Form DB
+    const handleSubmit = async () => {
+        try {
+            const responseDb = await axios.post(`${import.meta.env.VITE_API_URL}/contact`, formData);
+            if (responseDb.status === 201) {
+                navigate("/gracias");
+            }
+        } catch (error) {
+            setError(true);
+            console.error(`Error al guardar los datos en la base de datos: ${error.message}`);
+            throw error; 
+        }
+    };
+    
+    // Ambas Funciones
+    const handleSubmitForm = async (e) => {
+        e.preventDefault();
+    
+        try {
+            setError(false);
+            setLoading(true);
+            await handleSubmitNodemailer();
+            await handleSubmit();
+        } catch (error) {
+            setError(true);
+            console.error(`Error al procesar el formulario: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
+    };  
 
     if(loading) return <h2>Enviando...</h2> /* <Spinner /> */
     if(error) return <h2>Error Al Enviar Formulario</h2> /* <Error /> */
@@ -38,7 +63,7 @@ const Contacto = () => {
     return(
         <>
             <NavBar />
-            <ContactForm handleSetValues={handleSetValues} handleSubmit={handleSubmit} formData={formData} />
+            <ContactForm handleSetValues={handleSetValues} handleSubmitForm={handleSubmitForm} formData={formData} />
         </>
     )
 }
