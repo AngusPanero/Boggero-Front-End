@@ -4,8 +4,9 @@ import { auth } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import axios from "axios";
 import NavBarMobile from "./NavBarMobile";
-import "../css/navBar.css";
 import useAuth from "../contexts/AuthContext";
+import "../css/navBar.css";
+import "../css/buttons.css";
 
 const NavBar = () => {
     const menuRef = useRef();
@@ -95,11 +96,11 @@ const NavBar = () => {
 
     return (
         <header className="navbar">
-            <h4 className="logo">Logo</h4>
+            <Link to="/" className="logo">Boggero</Link>
         
             <nav className="center-links desktop-only">
-                <Link to="/alquiler">Alquiler</Link>
-                <Link to="/venta">Venta</Link>
+                <Link to="/alquiler">Alquileres</Link>
+                <Link to="/venta">Ventas</Link>
                 <Link to="/contacto">Contacto</Link>
                 <Link to="/nosotros">Nosotros</Link>
             </nav>
@@ -108,9 +109,9 @@ const NavBar = () => {
                 {loading ? (
                     <p>...</p>
                 ) : user ? (
-                    <button className="logout desktop-only" onClick={handleLogout}> Cerrar Sesión</button>
+                    <button className="logout desktop-only btn liquid" onClick={handleLogout}> Cerrar Sesión</button>
                 ) : (
-                    <button className="logout desktop-only" onClick={toggleLoginForm}> Administrador </button>
+                    <button className="logout desktop-only btn liquid" onClick={toggleLoginForm}> Administrador </button>
                 )}
                 <button className="menu-btn mobile-only" onClick={toggleMenu}>☰</button>
             </div>
@@ -120,7 +121,7 @@ const NavBar = () => {
                     <input type="email" value={email} id="email" name="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" value={password} id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
 
-                    <button type="submit">Iniciar</button>
+                    <button className="btn liquid" type="submit">Iniciar</button>
                 </form>
             )}
         

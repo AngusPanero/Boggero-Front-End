@@ -1,164 +1,204 @@
-/* --- Estructura general --- */
+/* ===== NAVBAR general ===== */
 header.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #111;
-    color: white;
-    position: relative;
+    background: rgba(247, 205, 247, 0.296);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-    font-size: 1.3rem;
-    font-weight: bold;
+    color: white;
+    font-weight: 400;
+    font-size: 1.6rem;
 }
 
-  /* Links desktop */
+/* ===== LINKS DESKTOP ===== */
 .center-links a {
-    margin: 0 15px;
+    margin: 0 30px;
     text-decoration: none;
     color: white;
+    font-size: 1.3rem;
     font-weight: 500;
-    transition: color 0.3s;
+    position: relative;
+    transition: 0.3s;
 }
 
 .center-links a:hover {
-    color: #8e2de2;
+    color: var(--violet-300);
+}
+.center-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--violet-300);
+    transition: width 0.3s;
+}
+.center-links a:hover::after {
+    width: 100%;
 }
 
-  /* Acciones derechas */
+/* ===== BOTONES DERECHA ===== */
 .right-actions {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 .logout {
     background: transparent;
-    border: 1px solid #8e2de2;
-    padding: 5px 10px;
-    color: #8e2de2;
+    border: 1px solid var(--violet-500);
+    color: var(--violet-900);
+    padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
-
 .logout:hover {
-    background: #8e2de2;
+    background: var(--violet-500);
     color: white;
 }
 
-  /* --- Mobile menu --- */
+/* ===== BOTÓN HAMBURGUESA ===== */
 .menu-btn {
     background: none;
     border: none;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: white;
     cursor: pointer;
 }
 
+/* ===== MENÚ DESPLEGABLE MOBILE ===== */
 .mobile-menu {
     position: absolute;
     top: 60px;
-    right: 15px;
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 10px;
+    left: 0;
+    width: 100%;
+    padding: 20px 25px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    gap: 10px;
+    gap: 18px;
     z-index: 999;
+
+    /* 🎯 Fondo violeta claro, no negro */
+    background: rgba(189, 118, 189, 0.396);
+    backdrop-filter: blur(10px);
+
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* Efecto deslizante */
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
 }
 
 .mobile-menu a {
     text-decoration: none;
-    color: white;
+    color: #f4f4f4;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    transition: 0.3s;
+}
+.mobile-menu a:hover {
+    color: var(--violet-900);
 }
 
-.logout-mobile {
+/* Botón salir mobile */
+/* .logout-mobile {
+    background: var(--violet-500);
+    color: white;
     border: none;
-    background: #8e2de2;
-    padding: 8px;
-    color: white;
-    border-radius: 6px;
+    padding: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
 }
+.logout-mobile:hover {
+    background: var(--violet-700);
+} */
 
-  /* --- Responsivo --- */
-.desktop-only {
-    display: flex;
-}
-
-.mobile-only {
-    display: none;
-}
-
+/* Desktop vs Mobile */
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
 @media (max-width: 768px) {
-    .desktop-only {
-        display: none;
-    }
-
-    .mobile-only {
-        display: flex;
-    }
-
-    .mobile-menu {
-        width: 150px;
-    }
+    .desktop-only { display: none; }
+    .mobile-only { display: flex; }
 }
 
-/* --- LOGIN FORM ADMIN --- */
 .admin-login-form {
     position: absolute;
-    top: 70px;              /* un poco debajo del header */
-    right: 30px;
-    background-color: #111;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 20px;
-    width: 220px;
+    top: 90px;
+    right: 10px;
+    width: 270px;
+
+    background: rgba(247, 205, 247, 0.296);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    z-index: 999;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    gap: 15px;
+
+    z-index: 1100;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
     animation: fadeSlideIn 0.3s ease forwards;
 }
 
-  /* Inputs del formulario */
+/* Inputs */
 .admin-login-form input {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 6px;
-    padding: 8px 10px;
-    color: #f5f5f5;
-    font-size: 0.9rem;
-    transition: border-color 0.3s;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.admin-login-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .admin-login-form input:focus {
-    border-color: #8e2de2;
     outline: none;
+    border-color: var(--violet-100);
+    background: rgba(255, 255, 255, 0.35);
 }
 
-  /* Botón de iniciar sesión */
-.admin-login-form button {
-    background: #8e2de2;
-    color: #fff;
+/* Botón */
+/* .admin-login-form button {
+    background: var(--violet-500);
+    color: white;
     border: none;
-    border-radius: 6px;
-    padding: 8px;
-    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.3s ease;
 }
 
 .admin-login-form button:hover {
-    background: #6c1ec4;
-}  
-  /* Animación de aparición suave */
+    background: var(--violet-700);
+    box-shadow: 0 4px 12px rgba(157, 56, 157, 0.4);
+} */
+
+/* Animación suave (si no la tenés aún) */
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
@@ -167,23 +207,5 @@ header.navbar {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-  /* Responsivo: que no tape demasiado en mobile */
-@media (max-width: 768px) {
-    .admin-login-form {
-        top: 60px;
-        right: 10px;
-        width: 180px;
-        padding: 15px;
-    }
-
-    .admin-login-form input {
-        font-size: 0.8rem;
-    }
-
-    .admin-login-form button {
-        font-size: 0.85rem;
     }
 }
