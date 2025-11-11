@@ -10,7 +10,7 @@ const Home = () => {
         <>
             <NavBar />
             <HeroBackground image={heroImage}>
-                <img src={boggeroImage} alt="Boggero-Logo" width={"550px"} />
+                <img className="img-logo" src={boggeroImage} alt="Boggero-Logo" width={"550px"} />
                 <h1>Viví Donde Siempre Soñaste</h1>
                 <p>Propiedades en las mejores ubicaciones</p> <br />
                 <button className="btn liquid">Ver Propiedades</button>

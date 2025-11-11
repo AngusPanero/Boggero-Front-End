@@ -3,6 +3,13 @@ import axios from "axios"
 import NavBar from "./NavBar"
 import { useNavigate } from "react-router-dom"
 import ContactForm from "./ContactForm"
+import HeroBackground from "./HeroBackground"
+import heroImage from "../assets/cocina-minimalista.jpg"
+import boggeroImage from "../assets/boggero.png"
+import WhatsApp from "./WhatsApp"
+import Footer from "./Footer"
+import "../css/HeroBackground.css"
+import "../css/contacto.css"
 
 const Contacto = () => {
     const navigate = useNavigate()
@@ -60,10 +67,17 @@ const Contacto = () => {
     if(error) return <h2>Error Al Enviar Formulario</h2> /* <Error /> */
 
     return(
-        <>
+        <div className="page-content">
             <NavBar />
+            <HeroBackground image={heroImage}>
+                <img className="img-logo" src={boggeroImage} alt="Boggero-Logo" width={"550px"} />
+                <h1>Viví Donde Siempre Soñaste</h1>
+                <p>Propiedades en las mejores ubicaciones</p> <br />
+            </HeroBackground>
             <ContactForm handleSetValues={handleSetValues} handleSubmitForm={handleSubmitForm} formData={formData} />
-        </>
+            <WhatsApp />
+            <Footer />
+        </div>
     )
 }
 

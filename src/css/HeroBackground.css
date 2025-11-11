@@ -1,9 +1,12 @@
 .hero-background {
     width: 100%;
+    height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative;
+    position: fixed;
+    z-index: 1;                 /* queda debajo del NavBar */
+    overflow: hidden;
 }  
 
 /* Capa oscura/violeta arriba de la imagen para texto legible */
@@ -18,4 +21,13 @@
     text-align: center;
     color: white;
     padding: 20px;
+}
+
+.img-logo{
+    transition: 0.8s;
+}
+
+.img-logo:hover{
+    transform: scale(1.04);
+    transition: 0.8s;
 }
