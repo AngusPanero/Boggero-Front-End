@@ -7,7 +7,9 @@ import { createHouse } from "../redux/slice";
 import { useDispatch } from "react-redux";
 import OpenAi from "./OpenAi";
 import heroImage from "../assets/cocina-minimalista.jpg"
+import WhatsApp from "./WhatsApp";
 import "../css/HeroBackground.css"
+import Footer from "./Footer";
 
 const Admin = () => {
     const dispatch = useDispatch()
@@ -115,6 +117,8 @@ const Admin = () => {
                 <HouseForm  formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
             </section>
             <OpenAi />
+            <WhatsApp />
+            <Footer />
         </>
     )
 }

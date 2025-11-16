@@ -10,6 +10,7 @@ import WhatsApp from "./WhatsApp"
 import Footer from "./Footer"
 import "../css/HeroBackground.css"
 import "../css/contacto.css"
+import OpenAi from "./OpenAi"
 
 const Contacto = () => {
     const navigate = useNavigate()
@@ -76,6 +77,7 @@ const Contacto = () => {
             </HeroBackground>
             <ContactForm handleSetValues={handleSetValues} handleSubmitForm={handleSubmitForm} formData={formData} />
             <WhatsApp />
+            <OpenAi />
             <Footer />
         </div>
     )

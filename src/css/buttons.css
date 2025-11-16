@@ -1,5 +1,5 @@
 /* ---------------- BOTÓN LIQUID BOGGERO ---------------- */
-.btn {
+.btn{
     position: relative;
     padding: 0.7rem 1rem;
     font-size: 1.1rem;
@@ -12,8 +12,10 @@
     overflow: hidden;
     transition: all 0.3s ease;
 }  
+
   /* Efecto "liquid fill" */
-.btn.liquid {
+.btn.liquid{
+  z-index: 10;
     background: linear-gradient(var(--violet-500) 0 0) 
                 no-repeat 
                 calc(200% - var(--p, 0%)) 
@@ -23,7 +25,7 @@
 }
 
   /* Hover: se llena el botón de violeta */
-.btn.liquid:hover {
+.btn.liquid:hover{
     --p: 100%;
     --t: 0.3s;
     color: white;

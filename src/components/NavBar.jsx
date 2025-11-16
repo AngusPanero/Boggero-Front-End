@@ -109,9 +109,12 @@ const NavBar = () => {
                 {loading ? (
                     <p>...</p>
                 ) : user ? (
-                    <button className="logout desktop-only btn liquid" onClick={handleLogout}> Cerrar Sesión</button>
+                    <>
+                    {/* <Link className="logout desktop-only btn liquid" to="/admin">Administrador</Link> */}
+                    <button className="logout desktop-only btn liquid" onClick={handleLogout}>Cerrar Sesión</button>
+                    </>
                 ) : (
-                    <button className="logout desktop-only btn liquid" onClick={toggleLoginForm}> Administrador </button>
+                    <button className="logout desktop-only btn liquid" onClick={toggleLoginForm}>Administrador</button>
                 )}
                 <button className="menu-btn mobile-only" onClick={toggleMenu}>☰</button>
             </div>
