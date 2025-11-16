@@ -5,7 +5,7 @@
     background-position: center;
     background-repeat: no-repeat;
     position: fixed;
-    z-index: 1;                 /* queda debajo del NavBar */
+    z-index: -1;                 /* queda debajo del NavBar */
     overflow: hidden;
 }  
 
@@ -30,4 +30,12 @@
 .img-logo:hover{
     transform: scale(1.04);
     transition: 0.8s;
+}
+
+/*ADMIN*/ 
+.admin-content {
+    position: relative;
+    z-index: 10;        /* por encima del hero fijo */
+    padding-top: 120px; /* separa del NavBar */
+    width: 100%;
 }

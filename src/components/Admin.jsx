@@ -2,9 +2,12 @@ import { useState } from "react"
 import NavBar from "./NavBar"
 import axios from "axios";
 import HouseForm from "./HouseForm";
+import HeroBackground from "./HeroBackground";
 import { createHouse } from "../redux/slice";
 import { useDispatch } from "react-redux";
 import OpenAi from "./OpenAi";
+import heroImage from "../assets/cocina-minimalista.jpg"
+import "../css/HeroBackground.css"
 
 const Admin = () => {
     const dispatch = useDispatch()
@@ -43,6 +46,19 @@ const Admin = () => {
             return;
         }
         setFormData((prev) => ({ ...prev, imageUrl: [...prev.imageUrl, ...files] }));
+    };
+
+    // Drop Images
+    const handleImagesDrop = (files) => {
+        if (formData.imageUrl.length + files.length > 25) {
+            alert("Solo podés subir hasta 25 imágenes");
+            return;
+        }
+    
+        setFormData(prev => ({
+            ...prev,
+            imageUrl: [...prev.imageUrl, ...files]
+        }));
     };
     
     // Remove Image
@@ -94,9 +110,10 @@ const Admin = () => {
     return(
         <>
             <NavBar />
-            <h1>Crear Nueva Vivienda</h1>
-            <HouseForm  formData={formData}  handleSubmit={handleSubmit}  handleSetValues={handleSetValues}  handleImagesChange={handleImagesChange}  handleRemoveImage={handleRemoveImage} />
-            <br /><br />
+            <HeroBackground image={heroImage} />
+            <section className="admin-content"> 
+                <HouseForm  formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
+            </section>
             <OpenAi />
         </>
     )
