@@ -63,6 +63,21 @@
     padding: 12px 22px;
     border: none;
     border-radius: 14px;
+    background: linear-gradient(135deg, #aa2126, #e000d5);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(142, 45, 226, 0.4);
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
+    z-index: 40;
+}
+
+.update-button{
+    margin: 10px 0 0 0;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 14px;
     background: linear-gradient(135deg, #8e2de2, #4a00e0);
     color: white;
     font-weight: 600;

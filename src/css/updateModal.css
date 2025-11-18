@@ -1,0 +1,161 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* CONTENEDOR GENERAL: FORM + FOTOS */
+.modal-content {
+    width: 1200px;
+    max-height: 85vh;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+/* COLUMNA IZQUIERDA (form) */
+.modal-left {
+    width: 45%;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* COLUMNA DERECHA (fotos) */
+.modal-right {
+    width: 55%;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* FOTOS GRANDES */
+.modal-image {
+    min-width: 30rem;
+    min-height: 30rem;
+    max-width: 40rem;
+    max-height: 40rem;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* BOTÓN CERRAR */
+.close-btn {
+    position: absolute;
+    z-index: 9999;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Secciones */
+.section-title {
+    margin: 1rem 0 .3rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Grillas */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Inputs */
+.modal-form input,
+.modal-form textarea,
+.modal-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: white;
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
+
+/* Botón submit */
+.update-button {
+    margin-top: 1rem;
+    padding: 12px;
+    background: #8e2de2;
+    border: none;
+    width: 100%;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background: #9d41f5;
+}
+
+.modal-left textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-left textarea::-webkit-scrollbar-thumb {
+    background: #8e2de2;
+    border-radius: 20px;
+}
+
+
+.modal-left::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-left::-webkit-scrollbar-thumb {
+    background: #8e2de2;
+    border-radius: 20px;
+}
+
+/* 📱 MEDIA QUERY 768px */
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .modal-left,
+    .modal-right {
+        width: 100%;
+    }
+
+    .modal-right {
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .modal-image {
+        min-width: 15rem;
+        min-height: 15rem;
+        max-width: 25rem;
+        max-height: 25rem;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+}

@@ -1,8 +1,10 @@
 import { useState } from "react"
+import UpdateModal from "./UpdateModal"
 import "../css/houseCard.css"
 
 const HouseCard = ({ houseProp, deleteProp }) => {
     const [ imageNumber, setImageNumber ] = useState(0)
+    const [ modalUpdate, setModalUpdate ] = useState(false)
 
     const prevImage = () => {
         setImageNumber((number) => number === 0 ? houseProp.imageUrl.length - 1 : number -1)
@@ -13,6 +15,7 @@ const HouseCard = ({ houseProp, deleteProp }) => {
     }
 
     return (
+        <>
         <div className="house-card">          
             <h2 className="house-card-title">{houseProp?.title}</h2>
             <h4>Calle: {houseProp?.direction}</h4>
@@ -32,6 +35,7 @@ const HouseCard = ({ houseProp, deleteProp }) => {
                 <p><strong>Ubicación:</strong> {houseProp?.ubication}</p>
                 <p><strong>Operación:</strong> {houseProp?.operation.toUpperCase()}</p>
                 <p><strong>Tipo:</strong> {houseProp?.typeOfHouse}</p>
+                <p><strong>Expensas:</strong> {houseProp?.taxes}</p>
             </div>
 
             <div className="house-group">
@@ -39,8 +43,11 @@ const HouseCard = ({ houseProp, deleteProp }) => {
                 <p><strong>Baños:</strong> {houseProp?.bathrooms}</p>
                 <p><strong>M²:</strong> {houseProp?.area}</p>
             </div>
+            <button className="update-button" onClick={() => setModalUpdate(!modalUpdate)}>Actualizar</button>
             <button className="delete-button" onClick={deleteProp}>Borrar</button>
         </div>
+        {modalUpdate && <UpdateModal house={houseProp} closeModal={() => setModalUpdate(!modalUpdate)} />}
+        </>
     )
 }
 

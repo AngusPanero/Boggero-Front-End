@@ -54,9 +54,9 @@ export const readById = createAsyncThunk("readById",
 
 // Update
 export const updateHouse = createAsyncThunk("updateHouse", 
-    async ({ id, data }, { rejectWithValue }) => {
+    async ({ id, form }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${import.meta.env.VITE_API_URL}/update/${id}`, data)
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/update/${id}`, form)
             if(response.status === 404){
                 return rejectWithValue(`Error updating house! 🔴`)
             }
