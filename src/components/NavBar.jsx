@@ -94,7 +94,7 @@ const NavBar = () => {
     if(errorOut) return <h1>Error Cerrando Sesión!</h1>
     if(loadingOut) return <h1>Cerrando Sesión...</h1>
 
-    return (
+    return(
         <header className="navbar">
             <Link to="/" className="logo">Boggero</Link>
         
@@ -103,16 +103,14 @@ const NavBar = () => {
                 <Link to="/venta">Ventas</Link>
                 <Link to="/contacto">Contacto</Link>
                 <Link to="/nosotros">Nosotros</Link>
+                {user && <Link to="/admin">Administrador</Link>}
             </nav>
         
             <div className="right-actions">
                 {loading ? (
                     <p>...</p>
                 ) : user ? (
-                    <>
-                    {/* <Link className="logout desktop-only btn liquid" to="/admin">Administrador</Link> */}
                     <button className="logout desktop-only btn liquid" onClick={handleLogout}>Cerrar Sesión</button>
-                    </>
                 ) : (
                     <button className="logout desktop-only btn liquid" onClick={toggleLoginForm}>Administrador</button>
                 )}

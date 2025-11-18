@@ -1,12 +1,10 @@
 import "../css/HeroBackground.css"
+import heroImage from "../assets/cocina-minimalista.jpg"
 
-const HeroBackground = ({ image, height = "100vh", children }) => {
+
+const HeroBackground = () => {
     return(
-        <section className="hero-background" style={{ backgroundImage: `url(${image})`, height }}>
-            <div className="hero-overlay">
-                { children }
-            </div>
-        </section>
+        <div className="hero-background" style={{ backgroundImage: `url(${heroImage})` }}></div>
     )
 }
 

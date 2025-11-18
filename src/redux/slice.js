@@ -9,7 +9,7 @@ export const createHouse = createAsyncThunk("createHouse",
             if(response.status !== 201) {
                 return rejectWithValue(`Error creating house! 🔴`)
             }
-            return response.data.message
+            return response.data
         } catch (error) {
             console.error(`Internal error, ${error}`);
             return rejectWithValue(error.response?.data?.message || `Internal error, ${error}`)
@@ -28,7 +28,7 @@ export const getHouses = createAsyncThunk("getHouses",
             if(response.status !== 200){
                 return rejectWithValue(`Error getting houses! 🔴`)
             }
-            return response.data.houses
+            return response.data
         } catch (error) {
             console.error(`Internal error creating house, ${error}`);
             return rejectWithValue(error.response?.data?.message || `Internal error, ${error}`)

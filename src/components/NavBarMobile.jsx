@@ -23,15 +23,10 @@ const NavBarMobile = forwardRef(({ closeMenu, openLogin }, ref) => {
             <Link to="/venta" onClick={closeMenu}>Venta</Link>
             <Link to="/contacto" onClick={closeMenu}>Contacto</Link>
             <Link to="/nosotros" onClick={closeMenu}>Nosotros</Link>
+            {user && <Link to="/admin">Administrador</Link>}
 
-            {user ?  
-            <>
-            <Link className="btn liquid" to="/admin">Administrador</Link>
-            <button className="btn liquid" onClick={handleLogoutClick}>Cerrar Sesión</button>
-            </>
-            : 
-            <button className="btn liquid" onClick={handleLoginClick}>Administrador</button>
-            }
+            {user ? <button className="btn liquid" onClick={handleLogoutClick}>Cerrar Sesión</button> :
+                <button className="btn liquid" onClick={handleLoginClick}>Administrador</button>}
         </div>
     );
 });

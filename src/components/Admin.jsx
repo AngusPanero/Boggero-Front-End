@@ -1,18 +1,26 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import NavBar from "./NavBar"
 import axios from "axios";
 import HouseForm from "./HouseForm";
 import HeroBackground from "./HeroBackground";
-import { createHouse } from "../redux/slice";
-import { useDispatch } from "react-redux";
+import { createHouse, getHouses, deleteHouse } from "../redux/slice";
+import { useDispatch, useSelector } from "react-redux";
 import OpenAi from "./OpenAi";
 import heroImage from "../assets/cocina-minimalista.jpg"
 import WhatsApp from "./WhatsApp";
-import "../css/HeroBackground.css"
 import Footer from "./Footer";
+import HouseCard from "./HouseCard";
+import "../css/admin.css"
 
 const Admin = () => {
     const dispatch = useDispatch()
+    const houses = useSelector((state) => state.houseSelector)
+
+    useEffect(() => {
+        dispatch(getHouses())
+        console.log(houses);
+        
+    }, [dispatch])
 
     const [formData, setFormData] = useState({
         title: "",       
@@ -114,8 +122,14 @@ const Admin = () => {
             <NavBar />
             <HeroBackground image={heroImage} />
             <section className="admin-content"> 
-                <HouseForm  formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
+                <HouseForm formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
+                <div className="houses-box">
+                    {houses.houses?.map(house => (
+                        <HouseCard deleteProp={() => dispatch(deleteHouse(house._id))} key={house._id} houseProp={house} />
+                    ))}
+                </div>
             </section>
+            
             <OpenAi />
             <WhatsApp />
             <Footer />
