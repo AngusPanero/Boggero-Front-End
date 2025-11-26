@@ -1,18 +1,19 @@
 import NavBar from "./NavBar"
 import HeroBackground from "./HeroBackground"
-import HeroSection from "./HeroSection"
 import OpenAi from "./OpenAi"
 import WhatsApp from "./WhatsApp"
 import Footer from "./Footer"
 import { useDispatch, useSelector } from "react-redux"
 import { getHouses } from "../redux/slice"
 import HouseClientCard from "./HouseClientCard"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import "../css/houseClientCard.css"
 
 const Venta = () => {
     const dispatch = useDispatch()
     const houseProp = useSelector((state) => state.houseSelector)
+
+    const [ openModal, setOpenModal ] = useState(false)
 
     useEffect(() => {
         dispatch(getHouses())

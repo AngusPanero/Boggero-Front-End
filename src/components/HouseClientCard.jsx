@@ -1,8 +1,10 @@
 import { useState } from "react";
+import CompleteViewModal from "./CompleteViewModal"
 import "../css/houseClientCard.css";
 
 const HouseClientCard = ({ houseProp }) => {
     const [imageNumber, setImageNumber] = useState(0);
+    const [ openModal, setOpenModal ] = useState(false)
 
     const prevPage = () => {
         setImageNumber((n) =>
@@ -47,9 +49,10 @@ const HouseClientCard = ({ houseProp }) => {
                     <p><strong>Baños:</strong> {houseProp?.bathrooms}</p>
                     <p><strong>M²:</strong> {houseProp?.area}</p>
                 </div>
-                <button className="client-view-more-button">Ver Más</button>
+                <button onClick={() => setOpenModal(!openModal)} className="client-view-more-button">Ver Más</button>
             </div>
         </div>
+        { openModal && <CompleteViewModal houseProp={houseProp} closeModal={() => setOpenModal(!openModal)} /> }
         </>
     );
 };

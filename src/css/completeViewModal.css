@@ -1,0 +1,211 @@
+/* ================= OVERLAY ================= */
+.complete-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* ================= CONTENEDOR GENERAL ================= */
+.complete-content {
+    width: 1200px;
+    max-height: 80vh;
+    margin-top: 3rem;
+    background: rgba(141, 141, 141, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+/* ================= COLUMNA IZQUIERDA (INFO) ================= */
+.complete-left {
+    width: 45%;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* ================= COLUMNA DERECHA (FOTOS) ================= */
+.complete-right {
+    width: 55%;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-y: scroll;
+}
+.complete-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.complete-right::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+}
+
+.complete-right::-webkit-scrollbar-thumb {
+    background: #8e2de2;
+    border-radius: 20px;
+}
+
+.complete-right::-webkit-scrollbar-thumb:hover {
+    background: #9d41f5;
+}
+
+/* ================= IMAGEN ================= */
+.image-box {
+    position: relative;  
+    margin-top: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.complete-image {
+    min-width: 35rem;
+    min-height: 35rem;
+    max-width: 35rem;
+    max-height: 35rem;
+    margin: 2rem;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* ================= BOTÓN CERRAR ================= */
+.complete-close-btn {
+    position: absolute;
+    z-index: 9999;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= TÍTULOS ================= */
+.complete-section-title {
+    margin: 1rem 0 .3rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* ================= GRILLAS ================= */
+.complete-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* ================= TEXTO ================= */
+.complete-field p {
+    margin: 1rem 0;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: white;
+}
+
+/* ================= DESCRIPCIÓN ================= */
+.complete-description {
+    height: 200px;
+    resize: none;
+    overflow-y: auto;
+}
+
+/* ================= SCROLL ================= */
+.complete-left::-webkit-scrollbar {
+    width: 6px;
+}
+
+.complete-left::-webkit-scrollbar-thumb {
+    background: #8e2de2;
+    border-radius: 20px;
+}
+
+.complete-description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.complete-description::-webkit-scrollbar-thumb {
+    background: #8e2de2;
+    border-radius: 20px;
+}
+
+/* ================= CARRUSEL ================= */
+.complete-carousel-btn {
+    position: absolute;
+    background-color: rgba(231, 231, 231, 0.796);
+    border-radius: 90px;
+    padding: 0.4rem;
+    width: 2rem;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.complete-left-btn { left: 10px; }
+.complete-right-btn { right: 10px; }
+
+/* ================= MAPA ================= */
+.complete-map {
+    width: 560px;
+    height: 460px;
+    border: none;
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    box-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    filter: grayscale(0.15) contrast(1.05);
+    transition: all 0.3s ease;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .complete-content {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .complete-left,
+    .complete-right {
+        width: 100%;
+    }
+
+    .complete-right {
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .complete-image {
+        min-width: 23.5rem;
+        min-height: 23.5rem;
+        max-width: 23.5rem;
+        max-height: 23.5rem;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+    .complete-map {
+        width: 100%;
+        height: 220px;
+        margin-top: 0.8rem;
+    }
+
+    .complete-map {
+        width: 400px;
+        height: 300px;
+    }
+}
