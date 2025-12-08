@@ -169,14 +169,13 @@
 
 .openAi {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    bottom: 22px;
+    right:30px;
 
-    padding: 12px 22px;
-    border: none;
-    border-radius: 14px;
+    border-radius: 80px;
 
     background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    padding: 8px;
     color: white;
 
     font-weight: 600;
@@ -192,4 +191,12 @@
 .openAi:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 35px rgba(142, 45, 226, .55);
+}
+
+@media (max-width: 768px) {
+    .openAi {
+        width: 53px;
+        bottom: 20px;
+        right: 25px;
+    }
 }

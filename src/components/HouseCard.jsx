@@ -14,6 +14,12 @@ const HouseCard = ({ houseProp, deleteProp }) => {
         setImageNumber((number) => number === houseProp.imageUrl.length -1 ? 0 : number +1)
     }
 
+    const handleConfirmDelete = () => {
+        if (window.confirm("Betina... ¿Seguro que querés borrar esta propiedad?")) {
+            onDelete(houseProp._id);
+        }
+    };
+
     return (
         <>
         <div className="house-card">          
@@ -44,7 +50,7 @@ const HouseCard = ({ houseProp, deleteProp }) => {
                 <p><strong>M²:</strong> {houseProp?.area}</p>
             </div>
             <button className="update-button" onClick={() => setModalUpdate(!modalUpdate)}>Actualizar</button>
-            <button className="delete-button" onClick={deleteProp}>Borrar</button>
+            <button className="delete-button" onClick={handleConfirmDelete}>Borrar</button>
         </div>
         {modalUpdate && <UpdateModal house={houseProp} closeModal={() => setModalUpdate(!modalUpdate)} />}
         </>

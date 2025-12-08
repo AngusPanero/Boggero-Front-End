@@ -7,12 +7,14 @@ import Contacto from "../components/Contacto";
 import Nosotros from "../components/Nosotros";
 import Venta from "../components/Venta";
 import Gracias from "../components/Gracias";
+import Error from "../components/Error";
 
 const AppRouter = () => {
     return(
         <Router>
             <Routes>
                 <Route path="/"  element={<Home />}/>
+                <Route path="/error"  element={<Error />}/>
                 <Route path="/alquiler"  element={<Alquiler />}/>
                 <Route path="/venta"  element={<Venta />}/>
                 <Route path="/contacto"  element={<Contacto />}/>

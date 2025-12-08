@@ -13,8 +13,6 @@ const Venta = () => {
     const dispatch = useDispatch()
     const houseProp = useSelector((state) => state.houseSelector)
 
-    const [ openModal, setOpenModal ] = useState(false)
-
     useEffect(() => {
         dispatch(getHouses())
         console.log(houseProp);
@@ -26,7 +24,10 @@ const Venta = () => {
             <NavBar />
             <HeroBackground />
             <section className="section">
-                {houseProp.houses?.map((house) => <HouseClientCard key={house._id} houseProp={house}/>)} 
+                {houseProp.houses?.filter(house => house.operation === "venta").map(house => (
+                        <HouseClientCard key={house._id} houseProp={house} />
+                    ))
+                }
             </section>
             <OpenAi />
             <WhatsApp />

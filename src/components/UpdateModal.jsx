@@ -5,7 +5,6 @@ import "../css/updateModal.css"
 
 const UpdateModal = ({ house, closeModal }) => {
     const dispatch = useDispatch();
-
     const [imageIndex, setImageIndex] = useState(0);
     const [form, setForm] = useState({
         title: house.title,
@@ -22,8 +21,10 @@ const UpdateModal = ({ house, closeModal }) => {
         uncovered: house.uncovered,
         area: house.area,
         description: house.description,
-        imageUrl: house.imageUrl
+        imageUrl: house.imageUrl,
+        maps: house.maps,
     });
+
 
     const nextImage = () => {
         setImageIndex(i => i === house.imageUrl.length - 1 ? 0 : i + 1);
@@ -39,10 +40,14 @@ const UpdateModal = ({ house, closeModal }) => {
     };
 
     const handleSubmit = async (e) => {
+        if (window.confirm("Betina... ¿Seguro que querés actualizar esta propiedad?")) {
         e.preventDefault()
         await dispatch(updateHouse({ id: house._id, form }))
         await dispatch(getHouses())
         closeModal()
+        } else {
+            closeModal
+        }
     }
 
     return (
@@ -131,6 +136,9 @@ const UpdateModal = ({ house, closeModal }) => {
                                 <input name="price" value={form.price} onChange={handleChange} />
                             </div>
                         </div>
+
+                        <label>Link Maps:</label>
+                        <input name="maps" value={form.maps} onChange={handleChange} />
 
                         <button className="update-button" type="submit">Guardar Cambios</button>
 

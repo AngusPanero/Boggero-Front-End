@@ -6,8 +6,7 @@ const HeroSection = () => {
         <section className="hero-content">
             <img src={boggeroImage} className="img-logo" width={"600px"}/>
             <h1>Viví donde siempre soñaste</h1>
-            <p>Propiedades en las mejores ubicaciones</p>
-            <button className="btn liquid">Ver Propiedades</button>
+            <h3>Propiedades en las mejores ubicaciones</h3>
         </section>
     );
 }

@@ -4,7 +4,7 @@ header.navbar {
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(247, 205, 247, 0.296);
+    background: rgba(255, 192, 255, 0.511);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -144,9 +144,9 @@ header.navbar {
     right: 10px;
     width: 270px;
 
-    background: rgba(247, 205, 247, 0.296);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(20, 20, 30, 0.45);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 14px;

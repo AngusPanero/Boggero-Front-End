@@ -11,15 +11,24 @@ export const SessionProvider = ({ children }) => {
     }, [])
 
     const handleSaveMessage = (message) => {
-        setMessages(prevMessages => {
-            const updated = [...prevMessages, message];
+        setMessages(prev => {
+            const updated = [...prev, message];
             sessionStorage.setItem("sessionMessage", JSON.stringify(updated));
             return updated;
         });
-    }
+    };
+
+    const updateLastMessage = (content) => {
+        setMessages(prev => {
+            const updated = [...prev];
+            updated[updated.length - 1].content = content;
+            sessionStorage.setItem("sessionMessage", JSON.stringify(updated));
+            return updated;
+        });
+    };
 
     return(
-        <SessionContext.Provider value={{ messages, handleSaveMessage }}>
+        <SessionContext.Provider value={{ messages, updateLastMessage, handleSaveMessage }}>
             { children }
         </SessionContext.Provider>
     )

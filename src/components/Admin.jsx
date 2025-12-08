@@ -41,7 +41,7 @@ const Admin = () => {
         maps: "",
         imageUrl: []
     });
-    
+
     // Set Values con parametros
     const handleSetValues = (e) => {
         const { name, value } = e.target;

@@ -7,6 +7,7 @@ import NavBarMobile from "./NavBarMobile";
 import useAuth from "../contexts/AuthContext";
 import "../css/navBar.css";
 import "../css/buttons.css";
+import Loader from "./Loader";
 
 const NavBar = () => {
     const menuRef = useRef();
@@ -46,7 +47,7 @@ const NavBar = () => {
             const idToken = await userCredentials.user.getIdToken()
             
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { idToken })
-            if(response.status = 200){
+            if(response.status === 200){
                 navigate("/admin")
             }
         } catch (error) {
@@ -61,7 +62,7 @@ const NavBar = () => {
         try {
             setLoadingOut(true)
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout`)
-            if(response.status = 200){
+            if(response.status === 200){
                 logoutContext()
                 navigate("/")
             }
@@ -88,8 +89,13 @@ const NavBar = () => {
             return () => document.removeEventListener("mousedown", handleClickOutside);
         }, [menuOpen, loginOpen]);
 
-    if(error) return <h1>Error Iniciando Sesión!</h1>
-    if(loading) return <h1>Iniciando Sesión...</h1>
+    useEffect(() => {
+        if (error) {
+            navigate("/error");
+        }
+    }, [error]);
+
+    if(loading) return <Loader />
 
     if(errorOut) return <h1>Error Cerrando Sesión!</h1>
     if(loadingOut) return <h1>Cerrando Sesión...</h1>

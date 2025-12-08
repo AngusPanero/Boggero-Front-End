@@ -1,74 +1,144 @@
-import axios from "axios"
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import useSession from "../contexts/SessionMessageContext";
-import "../css/OpenAi.css"
+import gptIcon from "../assets/gpt.png";    
+import "../css/OpenAi.css";
 
-const OpenAi = ({}) => {
-    const { messages, handleSaveMessage } = useSession()
+const OpenAi = () => {
+    const { messages, handleSaveMessage } = useSession();
 
-    const [ modealAi, setModalAi ] = useState(false)
-    const [ buttonModal, setButtonModal ] = useState(true)
+    const [modalAi, setModalAi] = useState(false);
+    const [buttonModal, setButtonModal] = useState(true);
 
-    const [ openAiText, setOpenAiText ] = useState("")
-    const [ loading, setLoading ] = useState(false)
-    const [ error, setError ] = useState(false)
+    const [openAiText, setOpenAiText] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [streamingReply, setStreamingReply] = useState(""); 
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages, streamingReply, modalAi]);
+
+    const chatRef = useRef(null);
+
+    const scrollToBottom = () => {
+        if (chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        }
+    };
+
+    const toggleModal = () => {
+        setModalAi(!modalAi);
+        setButtonModal(!buttonModal);
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if (!openAiText.trim() || loading) return;
+
         try {
-            setError(false)
-            setLoading(true)     
+            setError(null);
+            setLoading(true);
+            setStreamingReply("");
 
-            handleSaveMessage({ "role": "user", "content": `${openAiText}` }) // Guardar mensaje del usuario en el context
+            const userMessage = { role: "user", content: openAiText.trim() };
 
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, { "messages": [ ...messages, { "role": "user", "content": `${openAiText}` }]})
+            const payloadMessages = [...messages, userMessage];
 
-            handleSaveMessage({ "role": "assistant", "content": `${response.data.reply}` }) // Guardar mensaje del usuario en el context
-            
-            setOpenAiText("")
-        } catch (error) {
-            setError(true)
-            console.error(`Error al comunicarse con OpenAI: ${error}`);
-            throw new Error("Error al comunicarse con OpenAI");
+            handleSaveMessage(userMessage);
+            setOpenAiText("");
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: payloadMessages }),
+            });
+
+            if (!response.ok || !response.body) {
+                throw new Error("No se pudo conectar con el asistente.");
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            let fullReply = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                fullReply += chunk;
+
+                setStreamingReply((prev) => prev + chunk);
+            }
+
+            if (fullReply.trim()) {
+                handleSaveMessage({
+                    role: "assistant",
+                    content: fullReply.trim(),
+                });
+            }
+
+            setStreamingReply("");
+        } catch (err) {
+            console.error("Error al comunicarse con OpenAI:", err);
+            setError("Error al comunicarse con el asistente. Intentá de nuevo.");
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     const renderMessages = () => (
         <div>
-            {messages.map((msg, index) => (
-                msg.role === "user" ? <p className="message-user" key={index}>🙂: {msg.content}</p> : <p className="message-bot" key={index}>💻: {msg.content}</p>
-            ))}
+            {messages.map((msg, index) =>
+                msg.role === "user" ? (
+                    <p className="message-user" key={index}>
+                        🙂: {msg.content}
+                    </p>
+                ) : (
+                    <p className="message-bot" key={index}>
+                        💻: {msg.content}
+                    </p>
+                )
+            )}
+
+            {loading && streamingReply && (
+                <p className="message-bot">
+                    💻: {streamingReply}
+                </p>
+            )}
+
+            {loading && !streamingReply && (
+                <h2 className="message-bot">Consultando IA...</h2>
+            )}
         </div>
     );
 
-    const hadleButtons = () => {
-        setModalAi(!modealAi)
-        setButtonModal(!buttonModal)
-    }
-    
-    return(
+    return (
         <>
-        {buttonModal ? <button onClick={hadleButtons} className="openAi">OpenAi</button> : null}
+            {buttonModal && (
+                <img src={gptIcon} alt="gptIcon" onClick={toggleModal} className="openAi" width={"60PX"}/>
+            )}
 
-        <div className={modealAi ? "chat-box" : "chat-box-none"}>
-            <button onClick={hadleButtons} className="x-button">✖️</button>
-            <div className="chat-content">
-                {renderMessages()}
+            <div className={modalAi ? "chat-box" : "chat-box-none"}>
+                <button onClick={toggleModal} className="x-button">
+                    ✖️
+                </button>
 
-                {loading && <h2 className="message-bot">Consultando IA...</h2>}
+                <div className="chat-content" ref={chatRef}>
+                    {renderMessages()}
+                    {error && <h2 style={{ color: "red" }}>{error}</h2>}
+                </div>
 
-                {error && <h2 style={{ color: "red" }}>{error}</h2>}
-                
+                <form className={modalAi ? "form" : "form-none"} onSubmit={handleSubmit} >
+                    <input className="input-form" type="text" id="openAi" name="openAi" value={openAiText} onChange={(e) => setOpenAiText(e.target.value)} placeholder="Pregunte..."disabled={loading}/>
+                    <button className="button-form" type="submit" disabled={loading}>
+                        {loading ? "..." : "📨"}
+                    </button>
+                </form>
             </div>
-            <form className={modealAi ? "form" : "form-none"} onSubmit={handleSubmit}>
-                <input className="input-form" type="text" id="openAi" name="openAi" value={openAiText} onChange={(e) => setOpenAiText(e.target.value)} placeholder="Pregunte..." />
-                <button className="button-form" type="submit">📨</button>
-            </form>
-        </div>
         </>
-    )
-}
+    );
+};
 
 export default OpenAi;
