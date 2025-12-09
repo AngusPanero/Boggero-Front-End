@@ -137,12 +137,13 @@ const Admin = () => {
             <NavBar />
             <HeroBackground image={heroImage} />
             <section className="admin-content"> 
-                <HouseForm formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
+                
                 <div className="houses-box">
                     {houses.houses?.map(house => (
                         <HouseCard deleteProp={() => dispatch(deleteHouse(house._id))} key={house._id} houseProp={house} />
                     ))}
                 </div>
+                <HouseForm formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />
             </section>
             
             <OpenAi />

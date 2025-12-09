@@ -23,11 +23,17 @@ const Venta = () => {
         <>
             <NavBar />
             <HeroBackground />
-            <section className="section">
+            <section className="section-box">
+                <div>
+                    <h1 className="title-alquiler">Propiedades en Venta Disponibles:</h1>
+                </div>
+
+                <div className="section">
                 {houseProp.houses?.filter(house => house.operation === "venta").map(house => (
                         <HouseClientCard key={house._id} houseProp={house} />
                     ))
                 }
+                </div>
             </section>
             <OpenAi />
             <WhatsApp />

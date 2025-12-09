@@ -103,7 +103,7 @@ const NavBar = () => {
 
     return(
         <header className="navbar">
-            <img src={boggeroLogo} alt="boggeroLogo" className="boggero-logo" width={"110PX"}/>
+            <img src={boggeroLogo} alt="boggeroLogo" onClick={() => navigate("/")} className="boggero-logo" width={"110PX"} />
         
             <nav className="center-links desktop-only">
                 <Link to="/alquiler">Alquileres</Link>

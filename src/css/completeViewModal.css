@@ -2,7 +2,7 @@
 .complete-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
@@ -15,9 +15,9 @@
     width: 1200px;
     max-height: 80vh;
     margin-top: 3rem;
-    background: rgba(141, 141, 141, 0.08);
+    background: rgba(0, 0, 0, 0.442);
     border-radius: 18px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    box-shadow: 0 0 40px rgba(0,0,0,0.);
     overflow: hidden;
     display: flex;
     position: relative;

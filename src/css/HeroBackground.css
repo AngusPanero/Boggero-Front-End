@@ -6,9 +6,18 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
+    
     z-index: -100; /* siempre al fondo */
     pointer-events: none; /* no bloquea clicks */
+}
+
+.hero-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(65, 65, 65, 0.1); /* opacidad del overlay */
+    backdrop-filter: blur(px);   
+    z-index: -50; /* sigue encima del fondo, pero debajo de tu contenido */
 }
 
 .hero-content {
@@ -21,4 +30,12 @@
     height: 100vh;
     text-align: center;
     padding: 20px;
+}
+
+.title{
+    font-size: 2.5rem;
+}
+
+.subtitle{
+    font-size: 1.5rem;
 }

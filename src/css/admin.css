@@ -4,12 +4,19 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    margin: 8rem;
     gap: 1.2rem;
+    margin-top: 8rem;
 }
 
 .houses-box{
+    justify-content: center ;
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+}
+
+@media (max-width: 768px){
+    .admin-content{
+        margin-top: 2rem;
+    }
 }

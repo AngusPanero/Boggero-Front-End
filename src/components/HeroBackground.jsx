@@ -1,5 +1,5 @@
 import "../css/HeroBackground.css"
-import heroImage from "../assets/cocina-minimalista.jpg"
+import heroImage from "../assets/cocina-3.jpg"
 
 
 const HeroBackground = () => {
