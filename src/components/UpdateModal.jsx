@@ -41,12 +41,12 @@ const UpdateModal = ({ house, closeModal }) => {
 
     const handleSubmit = async (e) => {
         if (window.confirm("Betina... ¿Seguro que querés actualizar esta propiedad?")) {
-        e.preventDefault()
-        await dispatch(updateHouse({ id: house._id, form }))
-        await dispatch(getHouses())
-        closeModal()
+            e.preventDefault()
+            await dispatch(updateHouse({ id: house._id, form }))
+            await dispatch(getHouses())
+            closeModal()
         } else {
-            closeModal
+            closeModal()
         }
     }
 

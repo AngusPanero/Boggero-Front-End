@@ -8,6 +8,7 @@ import useAuth from "../contexts/AuthContext";
 import "../css/navBar.css";
 import "../css/buttons.css";
 import Loader from "./Loader";
+import boggeroLogo from "../assets/boggero.png";    
 
 const NavBar = () => {
     const menuRef = useRef();
@@ -102,7 +103,7 @@ const NavBar = () => {
 
     return(
         <header className="navbar">
-            <Link to="/" className="logo">Boggero</Link>
+            <img src={boggeroLogo} alt="boggeroLogo" className="boggero-logo" width={"110PX"}/>
         
             <nav className="center-links desktop-only">
                 <Link to="/alquiler">Alquileres</Link>

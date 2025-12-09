@@ -11,10 +11,15 @@ import WhatsApp from "./WhatsApp";
 import Footer from "./Footer";
 import HouseCard from "./HouseCard";
 import "../css/admin.css"
+import Loader from "./Loader";
+import Error from "./Error";
 
 const Admin = () => {
     const dispatch = useDispatch()
     const houses = useSelector((state) => state.houseSelector)
+
+    const [ error, setError ] = useState(false);
+    const [ loading, setLoading ] = useState(false);    
 
     useEffect(() => {
         dispatch(getHouses())
@@ -93,7 +98,10 @@ const Admin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try { // 1. Subir imágenes
+        try {
+        setLoading(true)
+        setError(false) 
+        // 1. Subir imágenes
         const uploadedUrls = await uploadImagesToCloudinary(formData.imageUrl);
 
         // 2. Crear objeto final 
@@ -113,9 +121,16 @@ const Admin = () => {
         });
 
         } catch (error) {
-        console.error("Error creando propiedad! 🔴", error);
+            setError(true)
+            console.error("Error creando propiedad! 🔴", error);
+            return
+        } finally{
+            setLoading(false); 
         }
     };
+
+    if(error) return <Error />
+    if(loading) return <Loader />
 
     return(
         <>

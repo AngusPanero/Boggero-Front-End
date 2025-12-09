@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/loader.css"; 
+import HeroBackground from "./HeroBackground";
 
 const Loader = ({ onComplete }) => {
     const [progress, setProgress] = useState(0);
@@ -15,13 +16,16 @@ const Loader = ({ onComplete }) => {
     }, [progress, onComplete]);
 
     return (
+        <>
+        <HeroBackground />
         <div className="boggero-loader">
-        <h1 className="boggero-title">Boggero</h1>
-        <div className="loader-bar">
-            <div className="loader-fill" style={{ width: `${progress}%` }} />
+            <h1 className="boggero-title">Boggero</h1>
+            <div className="loader-bar">
+                <div className="loader-fill" style={{ width: `${progress}%` }} />
+            </div>
+            <p className="loader-percent">{progress}%</p>
         </div>
-        <p className="loader-percent">{progress}%</p>
-        </div>
+        </>
     );
 };
 
