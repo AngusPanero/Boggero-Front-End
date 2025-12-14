@@ -8,6 +8,7 @@ import Nosotros from "../components/Nosotros";
 import Venta from "../components/Venta";
 import Gracias from "../components/Gracias";
 import Error from "../components/Error";
+import PoliticaCookies from "../components/PoliticaCookies";
 
 const AppRouter = () => {
     return(
@@ -20,6 +21,7 @@ const AppRouter = () => {
                 <Route path="/contacto"  element={<Contacto />}/>
                 <Route path="/nosotros"  element={<Nosotros />}/>
                 <Route path="/gracias"  element={<Gracias />}/>
+                <Route path="/politicacookies"  element={<PoliticaCookies />}/>
                 <Route path="/admin"  element={<PrivateRoute><Admin /></PrivateRoute>}/>
             </Routes>
         </Router>

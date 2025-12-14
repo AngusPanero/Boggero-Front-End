@@ -11,6 +11,7 @@ import Footer from "./Footer"
 import "../css/HeroBackground.css"
 import "../css/contacto.css"
 import OpenAi from "./OpenAi"
+import CookiesBanner from "./Cookies"
 
 const Contacto = () => {
     const navigate = useNavigate()
@@ -70,6 +71,7 @@ const Contacto = () => {
     return(
         <div className="page-content">
             <NavBar />
+            <CookiesBanner />
             <HeroBackground image={heroImage}>
                 <img className="img-logo" src={boggeroImage} alt="Boggero-Logo" width={"550px"} />
                 <h1>Viví Donde Siempre Soñaste</h1>

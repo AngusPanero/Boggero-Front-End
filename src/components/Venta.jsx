@@ -8,6 +8,7 @@ import { getHouses } from "../redux/slice"
 import HouseClientCard from "./HouseClientCard"
 import { useEffect, useState } from "react"
 import "../css/houseClientCard.css"
+import CookiesBanner from "./Cookies"
 
 const Venta = () => {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ const Venta = () => {
     return(
         <>
             <NavBar />
+            <CookiesBanner />
             <HeroBackground />
             <section className="section-box">
                 <div>

@@ -120,6 +120,7 @@ textarea {
   /* ✅ RESPONSIVE: móviles y tablets */
 @media (max-width: 768px) {
     .contact-container {
+    margin-top: 9rem;
     width: 90%;
     padding: 1.5rem;
 }
