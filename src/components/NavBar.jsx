@@ -9,6 +9,7 @@ import "../css/navBar.css";
 import "../css/buttons.css";
 import Loader from "./Loader";
 import boggeroLogo from "../assets/boggero.png";    
+import API_URL from "../config/api";
 
 const NavBar = () => {
     const menuRef = useRef();
@@ -47,7 +48,7 @@ const NavBar = () => {
             loginContext(userCredentials.user)
             const idToken = await userCredentials.user.getIdToken()
             
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { idToken })
+            const response = await axios.post(`${API_URL}/login`, { idToken })
             if(response.status === 200){
                 navigate("/admin")
             }

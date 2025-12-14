@@ -43,11 +43,6 @@ body {
   background-color: #0d0d0d;
   color: #f5f5f5;
   -webkit-font-smoothing: antialiased;
-  padding-top: var(--safe-top);
-  padding-bottom: var(--safe-bottom);
-  padding-left: var(--safe-left);
-  padding-right: var(--safe-right);
-
 }
 
 /* 4. Links sin subrayado y heredan color */
@@ -101,3 +96,15 @@ body {
   overflow-x: hidden;
 }
 
+@media (max-width: 768px) {
+  #root{
+  margin: 0;
+  min-height: 100%;
+  width: 100%;  
+  overflow-y: auto;
+  overflow-x: hidden;
+
+
+  padding-bottom: calc(2rem + var(--safe-bottom));
+  }
+}

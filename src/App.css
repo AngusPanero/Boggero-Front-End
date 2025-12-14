@@ -22,7 +22,7 @@ body {
 @media (max-width: 768px) {
     .logo-wp{
         position: fixed;
-        right: 1.2rem;
+        right: 5px;
         bottom: 5.2rem;
         width: 4rem;
         height: auto;

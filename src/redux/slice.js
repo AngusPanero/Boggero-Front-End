@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import API_URL from "../config/api";
 
 // Create
 export const createHouse = createAsyncThunk("createHouse", 
     async (data, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/createhouse`, data)
+            const response = await axios.post(`${API_URL}/createhouse`, data)
             if(response.status !== 201) {
                 return rejectWithValue(`Error creating house! 🔴`)
             }
@@ -21,7 +22,7 @@ export const createHouse = createAsyncThunk("createHouse",
 export const getHouses = createAsyncThunk("getHouses", 
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/houses`)
+            const response = await axios.get(`${API_URL}/houses`)
             if(response.status === 404){
                 return rejectWithValue(`No houses found! 🔴`)
             }
@@ -40,7 +41,7 @@ export const getHouses = createAsyncThunk("getHouses",
 export const readById = createAsyncThunk("readById",
     async(id, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/house/${id}`)
+            const response = await axios.get(`${API_URL}/house/${id}`)
             if(response.status === 404){
                 return rejectWithValue(`House with ID: ${id} not found! 🔴`)
             }
@@ -56,7 +57,7 @@ export const readById = createAsyncThunk("readById",
 export const updateHouse = createAsyncThunk("updateHouse", 
     async ({ id, form }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${import.meta.env.VITE_API_URL}/update/${id}`, form)
+            const response = await axios.put(`${API_URL}/update/${id}`, form)
             if(response.status === 404){
                 return rejectWithValue(`Error updating house! 🔴`)
             }
@@ -72,7 +73,7 @@ export const updateHouse = createAsyncThunk("updateHouse",
 export const deleteHouse = createAsyncThunk("deleteHouse", 
     async(id, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/delete/${id}`)
+            const response = await axios.delete(`${API_URL}/delete/${id}`)
             if(response.status === 404){
                 return rejectWithValue(`Error deleting house! 🔴`)
             }
