@@ -122,7 +122,7 @@ textarea {
     .contact-container {
     margin-top: 9rem;
     width: 90%;
-    padding: 1.5rem;
+    padding: 2rem;
 }
 .contact-content {
     flex-direction: column;
@@ -138,6 +138,7 @@ textarea {
 
 .contact-form {
     width: 100%;
+    overflow: visible;
     align-items: center;
     justify-content: center;
     }

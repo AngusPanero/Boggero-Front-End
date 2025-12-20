@@ -186,8 +186,13 @@
     }
 
     .complete-right {
+        min-height: 25rem;
         border-radius: 20px;
         padding: 1rem;
+        margin: 0;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .complete-image {
@@ -207,5 +212,12 @@
     .complete-map {
         width: 400px;
         height: 300px;
+    }
+
+    .complete-left-btn {
+        left: 20px;     
+    }
+    .complete-right-btn { 
+        right: 20px; 
     }
 }

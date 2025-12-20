@@ -1,9 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import useSession from "../contexts/SessionMessageContext";
+import { useDispatch } from "react-redux";
+import { getHouses } from "../redux/slice";
 import gptIcon from "../assets/gpt.png";    
+import API_URL from "../config/api";
 import "../css/OpenAi.css";
 
 const OpenAi = () => {
+    const dispatch = useDispatch()
+
     const { messages, handleSaveMessage } = useSession();
 
     const [modalAi, setModalAi] = useState(false);
@@ -13,6 +18,7 @@ const OpenAi = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [streamingReply, setStreamingReply] = useState(""); 
+
     useEffect(() => {
         scrollToBottom();
     }, [messages, streamingReply, modalAi]);
@@ -40,6 +46,8 @@ const OpenAi = () => {
             setLoading(true);
             setStreamingReply("");
 
+            const fetchHouses = await dispatch(getHouses());
+
             const userMessage = { role: "user", content: openAiText.trim() };
 
             const payloadMessages = [...messages, userMessage];
@@ -47,10 +55,10 @@ const OpenAi = () => {
             handleSaveMessage(userMessage);
             setOpenAiText("");
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
+            const response = await fetch(`${API_URL}/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages: payloadMessages }),
+                body: JSON.stringify({ messages: payloadMessages, houses: fetchHouses.payload }),
             });
 
             if (!response.ok || !response.body) {
@@ -132,9 +140,7 @@ const OpenAi = () => {
 
                 <form className={modalAi ? "form" : "form-none"} onSubmit={handleSubmit} >
                     <input className="input-form" type="text" id="openAi" name="openAi" value={openAiText} onChange={(e) => setOpenAiText(e.target.value)} placeholder="Pregunte..."disabled={loading}/>
-                    <button className="button-form" type="submit" disabled={loading}>
-                        {loading ? "..." : "📨"}
-                    </button>
+                    <button className="button-form" type="submit" disabled={loading}>📨</button>
                 </form>
             </div>
         </>

@@ -13,8 +13,10 @@ import HouseCard from "./HouseCard";
 import "../css/admin.css"
 import Loader from "./Loader";
 import Error from "./Error";
+import useAutoLogout from "../contexts/InactivityContext";
 
 const Admin = () => {
+    useAutoLogout()
     const dispatch = useDispatch()
     const houses = useSelector((state) => state.houseSelector)
 

@@ -172,3 +172,36 @@
 .client-carousel-btn.right {
     right: 17px;
 }
+
+@media (max-width: 768px) {
+    .client-house-card {
+        flex-direction: column;
+        height: auto;
+        max-width: 320px;
+    }
+
+    .client-image-card {
+        min-width: 100%;
+        min-height: 15rem;
+        max-width: 100%;
+        max-height: auto;
+    }
+
+    .client-image-container {
+        width: 100%;
+    }
+
+    .client-view-more-button{
+        width: 100%;
+    }
+
+    .client-house-card-title{
+        margin-top: .8rem;
+        margin-bottom: .8rem;
+    }
+
+    .title-alquiler {
+        font-size: 2rem;
+        top: 4rem;
+    }   
+}

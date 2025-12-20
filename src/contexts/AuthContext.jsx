@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
 
     const loginContext = (user) => {
         setUser(user)
-        console.log("Login Context: ", user);
     }
 
     const logoutContext = async () => {
@@ -32,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return(
-        <AuthContext.Provider value={{ user, loadingContext, loadingContext, loginContext, logoutContext }}>
+        <AuthContext.Provider value={{ user, setUser, loadingContext, loadingContext, loginContext, logoutContext }}>
             { children }
         </AuthContext.Provider>
     )

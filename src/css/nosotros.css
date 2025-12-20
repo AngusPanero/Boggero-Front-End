@@ -103,4 +103,12 @@ strong{
         grid-template-columns: 1fr;
         padding: 3rem 2.5rem;
     }
+    
+    .nosotros-card {
+        gap: 1.2rem;
+    }
+
+    .nosotros-text{
+        text-align: center;
+    }
 }

@@ -101,12 +101,18 @@
     background: linear-gradient(135deg, #fbc2eb, #a18cd1);
     color: black;
     margin-left: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .message-bot {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .form {
@@ -194,6 +200,10 @@
 }
 
 @media (max-width: 768px) {
+    .chat-box{
+        width: 22rem;
+    }
+
     .openAi {
         width: 53px;
         bottom: 20px;
