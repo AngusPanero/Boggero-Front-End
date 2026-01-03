@@ -14,6 +14,7 @@ import "../css/admin.css"
 import Loader from "./Loader";
 import Error from "./Error";
 import useAutoLogout from "../contexts/InactivityContext";
+import { auth } from "../firebase/firebase";
 
 const Admin = () => {
     useAutoLogout()
@@ -25,7 +26,6 @@ const Admin = () => {
 
     useEffect(() => {
         dispatch(getHouses())
-        console.log(houses);
         
     }, [dispatch])
 
@@ -99,6 +99,7 @@ const Admin = () => {
     // Submit 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = await auth.currentUser.getIdToken()
 
         try {
         setLoading(true)
@@ -111,7 +112,7 @@ const Admin = () => {
             console.log(finalData);
             
         // 3. Enviar a Redux thunk
-        dispatch(createHouse(finalData));
+        dispatch(createHouse({ data: finalData, token: token }));
 
         // 4. Reset
         setFormData({
@@ -131,6 +132,18 @@ const Admin = () => {
         }
     };
 
+    // Delete House 
+    const handleDeleteHouse = async (id) => {
+        try {
+            const token = await auth.currentUser.getIdToken()
+
+            await dispatch(deleteHouse({ id, token }));
+            await dispatch(getHouses())
+        } catch (error) {
+            console.error("Error deleting house 🔴", error)
+        }
+    }
+
     if(error) return <Error />
     if(loading) return <Loader />
 
@@ -142,7 +155,7 @@ const Admin = () => {
                 
                 <div className="houses-box">
                     {houses.houses?.map(house => (
-                        <HouseCard deleteProp={() => dispatch(deleteHouse(house._id))} key={house._id} houseProp={house} />
+                        <HouseCard deleteProp={handleDeleteHouse} key={house._id} houseProp={house} />
                     ))}
                 </div>
                 <HouseForm formData={formData} handleImagesDrop={handleImagesDrop} handleSubmit={handleSubmit} handleSetValues={handleSetValues} handleImagesChange={handleImagesChange} handleRemoveImage={handleRemoveImage} />

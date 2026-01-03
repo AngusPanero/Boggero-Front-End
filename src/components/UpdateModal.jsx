@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateHouse,getHouses } from "../redux/slice";
 import { useDispatch } from "react-redux";
+import { auth } from "../firebase/firebase";
 import "../css/updateModal.css"
 
 const UpdateModal = ({ house, closeModal }) => {
@@ -40,9 +41,10 @@ const UpdateModal = ({ house, closeModal }) => {
     };
 
     const handleSubmit = async (e) => {
+        const token = await auth.currentUser.getIdToken()
         if (window.confirm("Betina... ¿Seguro que querés actualizar esta propiedad?")) {
             e.preventDefault()
-            await dispatch(updateHouse({ id: house._id, form }))
+            await dispatch(updateHouse({ id: house._id, form, token }))
             await dispatch(getHouses())
             closeModal()
         } else {

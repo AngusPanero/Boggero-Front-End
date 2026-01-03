@@ -4,9 +4,13 @@ import API_URL from "../config/api";
 
 // Create
 export const createHouse = createAsyncThunk("createHouse", 
-    async (data, { rejectWithValue }) => {
+    async ({ data, token }, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_URL}/createhouse`, data)
+            const response = await axios.post(`${API_URL}/createhouse`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             if(response.status !== 201) {
                 return rejectWithValue(`Error creating house! 🔴`)
             }
@@ -39,9 +43,13 @@ export const getHouses = createAsyncThunk("getHouses",
 
 // Read by ID
 export const readById = createAsyncThunk("readById",
-    async(id, { rejectWithValue }) => {
+    async({ id, token}, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/house/${id}`)
+            const response = await axios.get(`${API_URL}/house/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             if(response.status === 404){
                 return rejectWithValue(`House with ID: ${id} not found! 🔴`)
             }
@@ -55,9 +63,13 @@ export const readById = createAsyncThunk("readById",
 
 // Update
 export const updateHouse = createAsyncThunk("updateHouse", 
-    async ({ id, form }, { rejectWithValue }) => {
+    async ({ id, form, token }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${API_URL}/update/${id}`, form)
+            const response = await axios.put(`${API_URL}/update/${id}`, form, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             if(response.status === 404){
                 return rejectWithValue(`Error updating house! 🔴`)
             }
@@ -71,9 +83,13 @@ export const updateHouse = createAsyncThunk("updateHouse",
 
 // Delete
 export const deleteHouse = createAsyncThunk("deleteHouse", 
-    async(id, { rejectWithValue }) => {
+    async({id, token}, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`${API_URL}/delete/${id}`)
+            const response = await axios.delete(`${API_URL}/delete/${id}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             if(response.status === 404){
                 return rejectWithValue(`Error deleting house! 🔴`)
             }

@@ -16,7 +16,7 @@ const HouseCard = ({ houseProp, deleteProp }) => {
 
     const handleConfirmDelete = () => {
         if (window.confirm("Betina... ¿Seguro que querés borrar esta propiedad?")) {
-            onDelete(houseProp._id);
+            deleteProp(houseProp._id);
         }
     };
 

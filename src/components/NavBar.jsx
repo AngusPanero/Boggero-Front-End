@@ -15,7 +15,7 @@ const NavBar = () => {
     const menuRef = useRef();
     const loginRef = useRef();
     const navigate = useNavigate()
-    const { user, loadingContext, loginContext, logoutContext } = useAuth()
+    const { user, /* loadingContext */ loginContext, logoutContext } = useAuth()
 
     const [ menuOpen, setMenuOpen ] = useState(false)
     const [loginOpen, setLoginOpen] = useState(false);
@@ -47,6 +47,7 @@ const NavBar = () => {
             const userCredentials =  await signInWithEmailAndPassword( auth, email, password )
             loginContext(userCredentials.user)
             const idToken = await userCredentials.user.getIdToken()
+            console.log(idToken);
             
             const response = await axios.post(`${API_URL}/login`, { idToken })
             if(response.status === 200){
