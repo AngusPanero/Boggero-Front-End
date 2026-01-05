@@ -8,6 +8,7 @@ import useAuth from "../contexts/AuthContext";
 import "../css/navBar.css";
 import "../css/buttons.css";
 import Loader from "./Loader";
+import Error from "./Error";
 import boggeroLogo from "../assets/boggero.png";    
 import API_URL from "../config/api";
 
@@ -44,6 +45,8 @@ const NavBar = () => {
         e.preventDefault()
         try {
             setLoading(true)
+            setError(false)
+
             const userCredentials =  await signInWithEmailAndPassword( auth, email, password )
             loginContext(userCredentials.user)
             const idToken = await userCredentials.user.getIdToken()
@@ -92,16 +95,10 @@ const NavBar = () => {
             return () => document.removeEventListener("mousedown", handleClickOutside);
         }, [menuOpen, loginOpen]);
 
-    useEffect(() => {
-        if (error) {
-            navigate("/error");
-        }
-    }, [error]);
-
     if(loading) return <Loader />
 
-    if(errorOut) return <h1>Error Cerrando Sesión!</h1>
-    if(loadingOut) return <h1>Cerrando Sesión...</h1>
+    if(errorOut) return <Error errorMessage="Error cerrando sesión." />
+    if(loadingOut) return <Loader />
 
     return(
         <header className="navbar">
@@ -130,6 +127,8 @@ const NavBar = () => {
                 <form className="admin-login-form" ref={loginRef} onSubmit={handleLogin}>
                     <input type="email" value={email} id="email" name="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" value={password} id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
+
+                    {error && (<p className="login-error"> Email o contraseña incorrectos </p>)}
 
                     <button className="btn liquid" type="submit">Iniciar</button>
                 </form>

@@ -84,51 +84,54 @@ const Admin = () => {
 
     // Subir a Cloudinary
     const uploadImagesToCloudinary = async (files) => {
-        const urls = [];
-        for (const file of files) {
-            const imgData = new FormData();
-            imgData.append("file", file);
-            imgData.append("upload_preset", "Boggero");
-    
-            const res = await axios.post( `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, imgData);
-            urls.push(res.data.secure_url);
+        try {
+            const urls = [];
+            for (const file of files) {
+                const imgData = new FormData();
+                imgData.append("file", file);
+                imgData.append("upload_preset", "Boggero");
+
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    imgData
+                );
+                if (!response?.data?.secure_url) {
+                    throw new Error("CLOUDINARY_ERROR");
+                }
+                urls.push(response.data.secure_url);
+            }
+            return urls;
+        } catch (error) {
+            console.error("Error en Cloudinary", error);
+            throw new Error("CLOUDINARY_ERROR");
         }
-        return urls;
-    };    
+    }; 
 
     // Submit 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await auth.currentUser.getIdToken()
-
         try {
-        setLoading(true)
-        setError(false) 
-        // 1. Subir imágenes
-        const uploadedUrls = await uploadImagesToCloudinary(formData.imageUrl);
+            setLoading(true);
+            setError(false);
 
-        // 2. Crear objeto final 
-        const finalData = { ...formData, imageUrl: uploadedUrls };
-            console.log(finalData);
-            
-        // 3. Enviar a Redux thunk
-        dispatch(createHouse({ data: finalData, token: token }));
+            const token = await auth.currentUser.getIdToken();
 
-        // 4. Reset
-        setFormData({
-            title: "", direction: "", operation: "", ubication: "",
-            price: "", typeOfHouse: "", description: "", condition: "",
-            ambients: "", bathrooms: "", years: "", taxes: "",
-            covered: "", uncovered: "", area: "", maps: "",
-            imageUrl: []
-        });
+            const uploadedUrls = await uploadImagesToCloudinary(formData.imageUrl);
+
+            const finalData = { ...formData, imageUrl: uploadedUrls };
+
+            await dispatch(createHouse({ data: finalData, token })).unwrap();
 
         } catch (error) {
-            setError(true)
-            console.error("Error creando propiedad! 🔴", error);
-            return
-        } finally{
-            setLoading(false); 
+            console.error("Error creando propiedad 🔴", error);
+
+            if (error.message === "CLOUDINARY_ERROR") {
+                setError("cloudinary");
+            } else {
+                setError("general");
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -144,7 +147,13 @@ const Admin = () => {
         }
     }
 
-    if(error) return <Error />
+    if(error === "cloudinary") {
+        return <Error errorMessage="Error en Cloudinary" />;
+    }
+
+    if(error === "general") {
+        return <Error errorMessage="Error creando propiedad." />;
+    }
     if(loading) return <Loader />
 
     return(

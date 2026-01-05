@@ -54,17 +54,11 @@ const UpdateModal = ({ house, closeModal }) => {
 
     return (
         <div className="modal-overlay">
-
             <div className="modal-content">
-
                 <button className="close-btn" onClick={closeModal}>×</button>
-
                 <div className="modal-left">
-
                     <h2>Actualizar Propiedad: {house.direction}</h2>
-
                     <form className="modal-form" onSubmit={handleSubmit}>
-
                         <p className="section-title">Datos Principales</p>
                         <div className="grid-2">
                             <div>
@@ -159,7 +153,6 @@ const UpdateModal = ({ house, closeModal }) => {
 
                     <button className="carousel-btn right-btn" onClick={nextImage}>{">"}</button>
                 </div>
-
             </div>
         </div>
     );

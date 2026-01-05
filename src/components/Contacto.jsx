@@ -12,6 +12,8 @@ import "../css/HeroBackground.css"
 import "../css/contacto.css"
 import OpenAi from "./OpenAi"
 import CookiesBanner from "./Cookies"
+import Error from "./Error"
+import Loader from "./Loader"
 
 const Contacto = () => {
     const navigate = useNavigate()
@@ -65,8 +67,8 @@ const Contacto = () => {
         }
     };  
 
-    if(loading) return <h2>Enviando...</h2> /* <Spinner /> */
-    if(error) return <h2>Error Al Enviar Formulario</h2> /* <Error /> */
+    if(loading) return <Loader />
+    if(error) return <Error errorMessage="Error al enviar consulta." />
 
     return(
         <div className="page-content">

@@ -42,10 +42,12 @@
 
 .title{
     font-size: 2.5rem;
+    font-family: "SF Pro Display", system-ui;
 }
 
 .subtitle{
     font-size: 1.5rem;
+    font-family: "SF Pro Display", system-ui;
 }
 
 @media (max-width: 768px) {

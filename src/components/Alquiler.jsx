@@ -6,7 +6,7 @@ import Footer from "./Footer"
 import { useDispatch, useSelector } from "react-redux"
 import { getHouses } from "../redux/slice"
 import HouseClientCard from "./HouseClientCard"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import "../css/houseClientCard.css"
 import CookiesBanner from "./Cookies"
 
