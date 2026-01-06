@@ -52,7 +52,8 @@ const NavBar = () => {
             loginContext(userCredentials.user);
 
             const idToken = await userCredentials.user.getIdToken();
-
+            console.log("Token", idToken);
+            
             const response = await axios.post(`${API_URL}/login`, { idToken });
 
             if (response.status === 200) {

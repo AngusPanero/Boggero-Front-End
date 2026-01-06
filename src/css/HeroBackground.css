@@ -6,7 +6,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
     z-index: -100; /* siempre al fondo */
     pointer-events: none; /* no bloquea clicks */
 }
@@ -30,6 +29,7 @@
     min-height: 100dvh; /* 👈 mejora real */
     text-align: center;
 
+    overflow-y: hidden;
     padding:
         calc(20px + var(--safe-top))
         20px
