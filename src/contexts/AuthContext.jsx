@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
             if(firebaseUser){
                 setUser(firebaseUser)
                 await firebaseUser.getIdToken()
+                
             } else {
                 setUser(null)
             }

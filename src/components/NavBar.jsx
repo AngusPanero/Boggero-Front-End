@@ -50,7 +50,6 @@ const NavBar = () => {
             const userCredentials =  await signInWithEmailAndPassword( auth, email, password )
             loginContext(userCredentials.user)
             const idToken = await userCredentials.user.getIdToken()
-            console.log(idToken);
             
             const response = await axios.post(`${API_URL}/login`, { idToken })
             if(response.status === 200){
@@ -66,19 +65,22 @@ const NavBar = () => {
     // LOGOUT
     const handleLogout = async () => {
         try {
-            setLoadingOut(true)
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout`)
-            if(response.status === 200){
-                logoutContext()
-                navigate("/")
+            setLoadingOut(true);
+            const idToken = await auth.currentUser.getIdToken();
+
+            const response = await axios.post(`${API_URL}/logout`, { idToken }, { withCredentials: true });
+
+            if (response.status === 200) {
+                logoutContext();
+                navigate("/");
             }
         } catch (error) {
-            setErrorOut(true)
-            console.error(`Error logging out session! 🔴 ${error}`);
+            setErrorOut(true);
+            console.error("Error logging out session 🔴", error);
         } finally {
-            setLoadingOut(false)
+            setLoadingOut(false);
         }
-    }
+    };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
