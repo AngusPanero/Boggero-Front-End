@@ -42,26 +42,60 @@ const NavBar = () => {
 
     // LOGIN
     const handleLogin = async (e) => {
-        e.preventDefault()
-        try {
-            setLoading(true)
-            setError(false)
+        e.preventDefault();
 
-            const userCredentials =  await signInWithEmailAndPassword( auth, email, password )
-            loginContext(userCredentials.user)
-            const idToken = await userCredentials.user.getIdToken()
-            
-            const response = await axios.post(`${API_URL}/login`, { idToken })
-            if(response.status === 200){
-                navigate("/admin")
+        try {
+            setLoading(true);
+            setError(null);
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+
+            loginContext(userCredentials.user);
+
+            const idToken = await userCredentials.user.getIdToken();
+
+            const response = await axios.post(`${API_URL}/login`, { idToken });
+
+            if (response.status === 200) {
+                navigate("/admin");
             }
+
         } catch (error) {
-            setError(true)
-            console.error(`Error login user! 🔴 ${error}`);
+            
+            if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found" || error.code === "auth/invalid-credential"){
+            try {
+                const { data } = await axios.post(`${API_URL}/login-failed`,{ email });
+                console.log(data);
+                
+                if (data.banned) {
+                    setError("Tu cuenta fue bloqueada por demasiados intentos fallidos.");
+                    return;
+                }
+                if (data.attempts < 5) {
+                    setError(
+                        `Credenciales inválidas. Te quedan ${5 - data.attempts} intento(s).`
+                    );
+                } else {
+                setError("Credenciales inválidas.");
+                }
+
+            } catch (error){
+                setError("Credenciales inválidas.");
+                console.error("Login error:", error);
+            }
+            return;
+            }
+            if (error.response?.status === 403) {
+                navigate("/banned");
+                return;
+            }
+            console.error("Login error:", error);
+            setError("Error al iniciar sesión. Intentá más tarde.");
+
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+
     // LOGOUT
     const handleLogout = async () => {
         try {
@@ -130,7 +164,7 @@ const NavBar = () => {
                     <input type="email" value={email} id="email" name="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" value={password} id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
 
-                    {error && (<p className="login-error"> Email o contraseña incorrectos </p>)}
+                    {error && (<p className="login-error">{error}</p>)}
 
                     <button className="btn liquid" type="submit">Iniciar</button>
                 </form>
